@@ -39,7 +39,7 @@ document.addEventListener('readystatechange', () => {
   Promise.all(Array.from(scripts).map(appendScriptCode))
     .then(() => {
         let markDeep = document.createElement('script');
-        markDeep.setAttribute('src','/vendor/markdeep.min.js');
+        markDeep.setAttribute('src','vendor/markdeep.min.js');
         document.body.appendChild(markDeep);
 
         setTimeout(() => {
