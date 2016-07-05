@@ -1,0 +1,785 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body>
+5.Number and Math
+===============================================================================
+進数表記
+---
+2進数、8進数表記が増えた。
+
+16進数　0Xでもよい
+``` js
+0xFF; // 255
+```
+
+2進数　0Bでもよい
+``` js
+0b11; // 3
+```
+
+8進数　0Oでもよい
+``` js
+0o10; // 8
+```
+
+Number.toString
+---
+(数値).toString(基数)で、基数の進数表示に変換できる。基数は2~36まで。
+``` js
+(255).toString(16); // 'ff'
+```
+
+``` js
+(4).toString(2);　// '100'
+```
+
+``` js
+(8).toString(8); // '10'
+```
+
+parseInt
+---
+parseInt(文字列, 基数) radixは省略可
+
+16進数表記で、基数が省略、0、16の場合のみ、16進数表記として解釈される
+``` js
+parseInt('0xFF'); // 255;
+```
+
+2進数表記、8進数表記は対応していない
+``` js
+parseInt('0b10'); // 0; 2にはならない;
+```
+
+``` js
+parseInt('10', 2); // 2;
+```
+
+``` js
+parseInt('0o10'); // 0; 8にはならない;
+```
+
+``` js
+parseInt('10', 8); // 8;
+```
+
+Number.isFinite
+---
+Infinityではない数値の場合true
+``` js
+Number.isFinite(Infinity); // false
+```
+
+``` js
+Number.isFinite(-Infinity); // false
+```
+
+``` js
+Number.isFinite(NaN); // false
+```
+
+``` js
+Number.isFinite(123); // true
+```
+
+``` js
+Number.isFinite('123'); // false
+```
+
+GlobalにあるisFiniteとは文字列を渡した場合が異なる
+``` js
+isFinite('123'); // true
+```
+
+Number.isNaN
+---
+GlobalにあるisNaNとは数値にできない文字列を渡した場合が異なる
+``` js
+Number.isNaN('???'); // false
+```
+
+``` js
+isNaN('???'); // true
+```
+
+Number.parseFloat and Number.parseInt
+---
+Number.parseFloat and Number.parseIntが追加された
+
+挙動はGlobalにあったものと同じ
+
+Number.EPSILON
+---
+1 と、Number として表現できる 1 より大きい最小の値の差
+``` js
+Number.EPSILON; // 2.220446049250313e-16
+```
+
+Number.isInteger(number)
+---
+小数点以下が存在しない数値の場合true
+
+``` js
+Number.isInteger(-1); //true
+```
+
+``` js
+Number.isInteger(0); //true
+```
+
+``` js
+Number.isInteger(1); // true
+```
+
+``` js
+Number.isInteger(1.1); // false
+```
+
+``` js
+Number.isInteger('1'); // false
+```
+
+``` js
+Number.isInteger(NaN); // false
+```
+
+``` js
+Number.isInteger(Infinity); // false
+```
+
+Safe Integer
+---
+JSでは、−2^53 < i < 2^53　の範囲の整数は正確に表現できる
+
+``` js
+Number.isSafeInteger(Number.MAX_SAFE_INTEGER);　// true
+```
+
+``` js
+Number.isSafeInteger(Number.MAX_SAFE_INTEGER + 1);　// false
+```
+
+``` js
+Number.MIN_SAFE_INTEGER; // -9007199254740991
+```
+
+``` js noresult
+Number.MAX_SAFE_INTEGER; // 9007199254740991
+```
+
+polyfill
+<script type="text/plain" data-url="files/05/002.js"></script>
+
+
+Math.sign(x)
+---
+数値の符号を返す。
+``` js
+Math.sign(1); // 1
+```
+
+``` js
+Math.sign(0); // 0
+```
+
+``` js
+Math.sign(-1); // -1
+```
+
+Math.trunc(x)
+---
+小数点以下を取り除いたものを返す
+
+``` js
+Math.trunc(1.1); // 1
+```
+
+``` js
+Math.trunc(1.9); // 1
+```
+
+``` js
+Math.trunc(-1.1); // -1
+```
+
+``` js
+Math.trunc(-1.9); // -1
+```
+
+Math.cbrt(x)
+---
+立方根を返す
+
+``` js
+Math.cbrt(8); // 2
+```
+
+精度
+---
+``` js
+1e-16 === 0.0000000000000001；　// true
+```
+
+``` js
+1e-16 === 0；　// false
+```
+
+``` js
+1 + 1e-16 === 1；　// true
+```
+
+Math.expm1(x)
+---
+e^x - 1　を返す。x　は引数で、e は自然対数の底であるネイピア数（オイラー数）
+
+[Math.expm1() - JavaScript | MDN](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Math/expm1)
+
+[Math.exp() - JavaScript | MDN](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Math/exp)
+
+
+Math.log1p(x)
+---
+Math.log(1 + x)を返す。
+
+引数として与えた数と 1 の合計の自然対数(底 e)を返す
+
+
+Math.log2(x)
+---
+``` js
+Math.log2(8); // 3
+```
+
+Math.log10(x)
+---
+``` js
+Math.log10(100); // 2
+```
+
+Math.fround(x)
+---
+引数として与えた数の最も近い単精度 floatを返します。
+
+[Math.fround() - JavaScript | MDN](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Math/fround)
+
+``` js
+Math.fround(1.337); // 1.3370000123977661
+```
+
+
+Math.imul(x, y)
+---
+このメソッドは 2 つの引数をとり、C 言語の様な 32 ビット乗算の結果を返します。
+
+[Math.imul() - JavaScript | MDN](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Math/imul)
+
+``` js
+Math.imul(0xffffffff, 5) //-5
+```
+
+Math.clz32(x)
+---
+引数として与えた数の32ビットバイナリでの先導する0ビットの数を返します。
+
+[Math.clz32() - JavaScript | MDN](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Math/clz32)
+
+``` js
+Math.clz32(0); // 32
+```
+
+``` js
+Math.clz32(1); // 31
+```
+
+``` js
+Math.clz32(1000); // 22
+```
+
+Trigonometric methods
+---
+
+Math.sinh(x)
+
+[Math.sinh() - JavaScript | MDN](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Math/sinh)
+
+Math.cosh(x)
+
+[Math.cosh() - JavaScript | MDN](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Math/cosh)
+
+Math.tanh(x)
+
+[Math.tanh() - JavaScript | MDN](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Math/tanh)
+
+Math.asinh(x)
+
+[Math.asinh() - JavaScript | MDN](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Math/asinh)
+
+Math.acosh(x)
+
+[Math.acosh() - JavaScript | MDN](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Math/acosh)
+
+Math.atanh(x)
+
+[Math.atanh() - JavaScript | MDN](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Math/atanh)
+
+Math.hypot(..args)
+
+[Math.hypot() - JavaScript | MDN](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Math/hypot)
+
+``` js
+Math.hypot(3, 4); // 5
+```
+
+String
+===============================================================================
+
+Unicode code point escapes
+---
+
+``` js
+'\u{1F680}' // ES2015
+```
+
+``` js
+'\uD83D\uDE80' // ES5
+```
+
+イテレートする場合に、code pointを元にイテレートされる
+``` js
+for (const ch of 'x\uD83D\uDE80y') {
+    ch.length;
+}
+```
+
+code pointを含む場合、文字列を反転するには、spread operatorを使うことでできる
+``` js
+const str = 'x\uD83D\uDE80y';
+[...str].reverse().join('');
+```
+
+``` js
+const str = 'x\uD83D\uDE80y';
+str.codePointAt(1).toString(16); // 1f680
+```
+
+``` js
+String.fromCodePoint(0x78, 0x1f680, 0x79);
+```
+
+Methods
+===
+
+``` js
+'hello'.startsWith('hell'); // true
+```
+
+``` js
+'hello'.endsWith('ello'); // true
+```
+
+``` js
+'hello'.includes('ell'); // true
+```
+
+``` js
+'doo '.repeat(3); // doo doo doo
+```
+
+Symbol
+===
+不変でユニークなデータ型
+
+IterableObjectはSymbol.iteratorのプロパティを持つ
+
+``` js
+Symbol() === Symbol(); // false
+```
+
+Symbol.iteratorはビルトインのSymbol
+<script type="text/plain" data-url="files/07/003.js"></script>
+
+Convert
+---
+
+Symbolの暗黙の型変換はTypeErrorになる
+``` js
+(Symbol('hoge')) + ''; // TypeError
+```
+
+String関数を通すか
+``` js
+String(Symbol('hoge')); // Symbol(hoge)
+```
+
+toStringメソッドを呼ぶ
+``` js
+Symbol('hoge').toString(); // Symbol(hoge)
+```
+
+Booleanへの変換は可
+``` js
+const sym = Symbol('hello');
+Boolean(sym); // true
+```
+
+``` js
+const sym = Symbol('hello');
+!sym; // false
+```
+
+JSON
+---
+JSON.stringifyはSymbolのvalueを無視するため、文字列に変換する必要がある
+<script type="text/plain" data-url="files/07/004.js"></script>
+<script type="text/plain" data-url="files/07/005.js"></script>
+
+Global Symbol registry
+---
+Symbol.forを使用すると、realmを超えて共通のsymbolとなる
+``` js
+const sym = Symbol.for('Hello everybody!');
+```
+
+
+Template literal
+===
+
+Template Literal
+---
+
+1.変数が埋め込める
+``` js
+const first = 'Jane';
+const last = 'Doe';
+`Hello ${first} ${last}!`; // Hello Jane Doe!
+```
+
+2.複数行が可能
+``` js
+const multiLine = `
+This is
+a string
+with multiple
+lines`;
+```
+
+3.String.rawを使うと\がエスケープされる
+``` js
+const str = String.raw`Not a newline: \n`;
+str === 'Not a newline: \\n'; // true
+```
+
+Tagged Template
+---
+Template Literalを関数に続けて書くこと
+
+``` js
+function raw(strs, ...substs) {
+  let result = strs.raw[0];
+  for (let [i,subst] of substs.entries()) {
+    result += subst;
+    result += strs.raw[i+1];
+  }
+  return result;
+}
+raw`one:${1};\n two:${2};`;
+```
+
+ｓｔｒｓには、${}で分割された内容が配列のように入っていて、
+
+rawのキーに同じものを\でエスケープしたものが入る。
+
+{0: 'one:', 1: ';\n' two, 2: ';', raw: ["one:", ";\n two:", ";"]}
+
+...substsには、${}のinterpretationの中身が入る。
+
+（...はrest operatorで2つ目以降の引数が入っている）
+
+
+Variables and scoping
+===
+
+var
+---
+- 関数スコープ
+- トップレベルで宣言する、globalオブジェクトのプロパティになる
+- ホイスティングされる
+
+``` js
+var a = 1;
+{
+  var a = 2;
+}
+a; // 2
+```
+
+
+let
+---
+- ブロックスコープ
+- トップレベルで宣言しても、globalオブジェクトのプロパティにならない
+- ホイスティングは起こらない（宣言より前の参照は、Temporal dead zoneと呼ぶ）
+
+``` js
+let a = 1;
+{
+  let a = 2;
+}
+a; // 1
+```
+
+
+``` js
+{
+  let a = 1;
+}
+a; // ReferenceError
+```
+
+``` js
+{
+  a; // ReferenceError
+  let a = 1;
+}
+```
+
+
+const
+---
+- 宣言と同時に初期化しなくてはならない
+- 初期化後の代入はできない
+- ただし、オブジェクトのプロパティを変更することは可能
+- ホイスティングは起こらない（宣言より前の参照は、Temporal dead zoneと呼ぶ）
+
+``` js
+const cons; // SyntaxError
+```
+
+``` js
+const cons = 1;
+cons = 2  // TypeErrorr
+```
+
+``` js
+const cons = {a: 1, b:2};
+cons.b = 3;
+cons.b; // 3
+```
+
+Destructuring
+===
+代入時の短縮記法
+
+左辺にオブジェクトの様な形 または 配列の様な形で書く
+
+Object pattern.
+---
+{　プロパティ: 代入する変数 }
+
+``` js
+const obj = { hoge: 'aaa', fuga: 'bbb' };
+const {hoge: h, fuga: f} = obj;
+h; // aaa
+f; // bbb
+```
+
+{ プロパティと同じ変数名 }とすることができる
+``` js
+const obj = { hoge: 'aaa', fuga: 'bbb' };
+const {hoge, fuga} = obj;
+hoge; // aaa
+fuga; // bbb
+```
+
+入れ子にできる
+``` js
+const obj = { hoge: 'aaa', fuga: {piyo: 'ccc'}  };
+const {hoge, fuga: {piyo}} = obj;
+hoge; // aaa
+// fuga => ReferenceError
+piyo; // ccc
+```
+
+欲しいプロパティだけをとることができる
+``` js
+const obj = { hoge: 'aaa', fuga: {piyo: 'ccc'}  };
+const {hoge} = obj;
+hoge; // aaa
+```
+
+undefinedまたはnullが右辺の場合、Destructuringできない
+``` js
+const { prop: x } = undefined; // TypeError
+```
+``` js
+const { prop: y } = null; // TypeError
+```
+
+
+Array pattern.
+---
+``` js
+const iterable = ['a', 'b'];
+const [x, y] = iterable;
+x; // a
+y; // b
+```
+
+入れ子にできる
+``` js
+const iterable = ['a', ['b', 'c']];
+const [x, [y, z]] = iterable;
+x; // a
+y; // b
+z; // c
+```
+
+欲しいインデックスだけをとることができる
+``` js
+const iterable = ['a', 'b', 'c'];
+const [,,z] = iterable;
+z; // c
+```
+
+使用例: 正規表現のexecの戻り値(配列)の取得
+``` js
+const [all, year, month, day] = /^(\d\d\d\d)-(\d\d)-(\d\d)$/.exec('2999-12-31');
+all; // "2999-12-31"
+year; // 2999"
+month; // "12"
+day; // "31"
+```
+
+右辺がiterableでない場合、Destructuringできない
+``` js
+const [] = undefined; // TypeError
+```
+
+Default values
+===
+
+左辺の変数部分に =デフォルト値 と代入する値がundefinedだった場合の値を指定できる
+
+``` js
+const {foo: x=3, bar: y} = {};
+x; // 3
+y; // undefined
+```
+
+``` js
+const [x=3, y] = [];
+x; // 3
+y; // undefined
+```
+
+デフォルト値に関数を指定することもできる。
+
+デフォルト値が使用されない場合その関数は実行されない。
+
+```js
+const {prop: y=alert(1)} = {prop: 1};
+y; // 1
+```
+
+左辺内のパターンにもデフォルト値は指定できる
+
+右辺の0番目はundefinedのためデフォルト値の { prop: 1 }が使われる
+``` js
+const [{ prop: x } = { prop: 1 }] = [];
+x; // 1
+```
+
+
+Rest operator
+===
+Array Patternの最後の変数に、残りの変数を配列として代入できる
+
+``` js
+const [x, ...y] = [1, 2, 3];
+x; // 1
+y; // [2, 3]
+```
+
+Rest Operatorを受け取った上で、Destructuringができる
+``` js
+const [x, ...[y, z]] = [1, 2, 3];
+x; // 1
+y; // 2
+z; // 3
+```
+
+Rest Operatorを受け取った上で、objectのプロパティに代入ができる(?)
+``` js
+const obj = {};
+const [x, ...obj.prop] = [1, 2, 3];
+x; // 1
+obj.prop; // [2, 3] こうなるらしいがchromeではエラー
+```
+
+Parameter handling
+===
+
+Default Value
+---
+関数の引数でデフォルト値を指定できるようになった
+``` js
+function hoge(x=1, y=2) {
+  return x + y;
+}
+hoge(); // 2
+```
+
+Rest parameters
+---
+仮引数の最後にRest paramterを指定して、可変長引数を受け取れるようになった
+
+``` js
+function hoge(x, ...y) {
+  return y;
+}
+hoge(1, 2, 3); // [2, 3]
+```
+
+Destructuring
+---
+引数の受け取りにDestructuringが使える
+仮引数(ObjectPattern or ArrayPatter)=実引数となる
+
+``` js
+function hoge({fuga, piyo}) {
+  return fuga + piyo;
+}
+hoge({fuga: 1, piyo: 2}); // 3
+```
+
+``` js
+function hoge([x, y]) {
+  return x + y;
+}
+hoge([1, 2]); // 3
+```
+
+
+Spread Operator
+---
+- 配列の前に...をつけることで、配列を要素ごとに分けて、関数の引数にできる
+- 前に...をつけた配列を、配列の中に記述することで、その位置に、配列の要素を追加できる
+
+``` js
+function hoge(x, y) {
+  return x + y;
+}
+hoge(...[1, 2]); // 3
+```
+
+``` js
+const arr = [2, 3];
+[1, ...arr, 4]; // [1, 2, 3, 4]
+```
+
+    <style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style>
+    <script type="text/javascript" charset="utf-8" src="/bundle.js"></script>
+  </body>
+</html>
