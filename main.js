@@ -34,7 +34,7 @@ function appendScriptResult(elem) {
   document.body.removeChild(ifr);
 }
 
-document.addEventListener('readystatechange', () => {
+document.addEventListener('DOMContentLoaded', () => {
   let scripts = document.querySelectorAll("[data-url]");
   Promise.all(Array.from(scripts).map(appendScriptCode))
     .then(() => {
